@@ -28,7 +28,7 @@ ArcaneSupremacy_Lab — это аналитическая лаборатория
    pip install psycopg2
 ![Python Result 1](pyres1.png)
 ![Python Result 2](pyres2.png)
-![Superset Result 1](superSetRes1.png)
-![Superset Result 2](superSetRes2.png)
-![Superset Result 1](superSetRes3.png)
-![Superset Result 2](superSetRes4.png)
+![Superset Result 1](supersetRes1.png)
+![Superset Result 2](supersetRes2.png)
+![Superset Result 1](supersetRes3.png)
+![Superset Result 2](supersetRes4.png)
