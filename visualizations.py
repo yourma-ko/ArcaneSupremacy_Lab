@@ -57,17 +57,28 @@ VISUALIZATION_QUERIES = {
         ORDER BY dropout_pct DESC;
     """,
     
-    # 4. Линейный график: активность студентов по неделям курса с разбивкой по итоговому результату
-    "line_chart_weekly_activity_by_outcome": """
-        SELECT sv.date as week_num, si.final_result,
-               COUNT(DISTINCT sv.id_student) as active_students
-        FROM studentvle sv
-        JOIN studentinfo si ON sv.id_student = si.id_student 
-                           AND sv.code_module = si.code_module 
-                           AND sv.code_presentation = si.code_presentation
-        WHERE sv.code_module = 'CCC' AND sv.code_presentation = '2014B'
-        GROUP BY sv.date, si.final_result
-        ORDER BY sv.date;
+    # 4. Линейный график: средний балл студентов по неделям курса
+    "line_chart_avg_score_by_week": """
+        WITH weekly_scores AS (
+            SELECT 
+                a.code_module,
+                a.code_presentation,
+                FLOOR(a.date / 7) as week_number,
+                AVG(sa.score) as avg_score,
+                COUNT(DISTINCT sa.id_student) as student_count
+            FROM assessments a
+            JOIN studentassessment sa ON a.id_assessment = sa.id_assessment
+            WHERE a.date IS NOT NULL
+            GROUP BY a.code_module, a.code_presentation, FLOOR(a.date / 7)
+        )
+        SELECT 
+            week_number,
+            code_module,
+            ROUND(AVG(avg_score)::numeric, 2) as avg_score
+        FROM weekly_scores
+        WHERE week_number BETWEEN 0 AND 30
+        GROUP BY week_number, code_module
+        ORDER BY week_number, code_module;
     """,
     
     # 5. Гистограмма: распределение баллов за экзаменационные задания
@@ -114,38 +125,69 @@ def execute_query(query):
 
 def create_pie_chart():
     """Создает круговую диаграмму распределения активности по типам материалов"""
+    print("\nСоздание круговой диаграммы: распределение активности по типам материалов...")
+    
     df = execute_query(VISUALIZATION_QUERIES["pie_chart_activity_by_material_type"])
     if df is None or df.empty:
         print("Нет данных для построения круговой диаграммы")
         return
     
-
-    plt.figure(figsize=(10, 10))
-    explode = [0.05] * len(df)  # Небольшой выступ для всех сегментов
-    colors = plt.cm.tab20(np.arange(len(df)) / len(df))
+    print(f"Получено {len(df)} строк данных")
     
-    plt.pie(df['total_clicks'], labels=df['activity_type'], autopct='%1.1f%%', 
-            startangle=90, explode=explode, colors=colors, shadow=True)
+    # Вычисляем процентное соотношение
+    df['percentage'] = (df['total_clicks'] / df['total_clicks'].sum()) * 100
     
-    plt.title('Распределение активности студентов по типам материалов', fontsize=16)
-    plt.axis('equal')  # Круговая, а не овальная диаграмма
+    # Объединяем категории с процентом меньше 1% в "Others"
+    threshold = 2.5
+    df_main = df[df['percentage'] >= threshold].copy()
+    df_others = df[df['percentage'] < threshold].copy()
+    
+    if not df_others.empty:
+        others_row = pd.DataFrame({
+            'activity_type': ['Others'],
+            'total_clicks': [df_others['total_clicks'].sum()],
+            'percentage': [df_others['percentage'].sum()]
+        })
+        df = pd.concat([df_main, others_row], ignore_index=True)
+    else:
+        df = df_main
+    
+    print(f"Категорий для отображения: {len(df)} (объединено в 'Others': {len(df_others)})")
+    
+    # Создаем простую круговую диаграмму
+    plt.figure(figsize=(10, 8))
+    
+    colors = plt.cm.Pastel1(np.arange(len(df)) / len(df))
+    
+    plt.pie(
+        df['total_clicks'], 
+        labels=df['activity_type'], 
+        autopct='%1.1f%%', 
+        startangle=90,
+        colors=colors
+    )
+    
+    plt.title('Распределение активности студентов по типам материалов', fontsize=14, pad=20)
+    plt.axis('equal')
     
     # Сохраняем график
     chart_path = charts_dir / "pie_chart_activity_by_material_type.png"
     plt.tight_layout()
-    plt.savefig(chart_path)
+    plt.savefig(chart_path, dpi=300, bbox_inches='tight')
     plt.close()
     
+    print(f"✓ Круговая диаграмма сохранена: {chart_path}")
 
 def create_bar_chart():
     """Создает столбчатую диаграмму: средний балл по типам заданий и модулям"""
-
+    print("\nСоздание столбчатой диаграммы: средний балл по типам заданий и модулям...")
+    
     df = execute_query(VISUALIZATION_QUERIES["bar_chart_avg_score_by_module_and_type"])
     if df is None or df.empty:
         print("Нет данных для построения столбчатой диаграммы")
         return
     
-
+    print(f"Получено {len(df)} строк данных")
     
     # Создаем сгруппированную столбчатую диаграмму
     plt.figure(figsize=(14, 10))
@@ -155,32 +197,38 @@ def create_bar_chart():
     
     # Добавляем подписи значений на столбцы
     for p in ax.patches:
-        ax.annotate(f"{p.get_height():.1f}", 
-                   (p.get_x() + p.get_width() / 2., p.get_height()), 
-                   ha = 'center', va = 'bottom',
-                   fontsize=9)
+        height = p.get_height()
+        if not np.isnan(height):
+            ax.annotate(f"{height:.1f}", 
+                       (p.get_x() + p.get_width() / 2., height), 
+                       ha='center', va='bottom',
+                       fontsize=9)
     
     plt.title('Средний балл по типам заданий и модулям', fontsize=16)
-    plt.xlabel('Модуль курса')
-    plt.ylabel('Средний балл')
-    plt.legend(title='Тип задания')
+    plt.xlabel('Модуль курса', fontsize=12)
+    plt.ylabel('Средний балл', fontsize=12)
+    plt.legend(title='Тип задания', fontsize=10)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     
     # Сохраняем график
     chart_path = charts_dir / "bar_chart_avg_score_by_module_and_type.png"
     plt.tight_layout()
-    plt.savefig(chart_path)
+    plt.savefig(chart_path, dpi=300)
     plt.close()
     
+    print(f"✓ Столбчатая диаграмма сохранена: {chart_path}")
 
 def create_horizontal_bar_chart():
     """Создает горизонтальную столбчатую диаграмму: процент отчислений по образовательному бэкграунду"""
-
+    print("\nСоздание горизонтальной столбчатой диаграммы: процент отчислений по образовательному бэкграунду...")
+    
     df = execute_query(VISUALIZATION_QUERIES["hbar_chart_dropout_by_education"])
     if df is None or df.empty:
         print("Нет данных для построения горизонтальной столбчатой диаграммы")
         return
-
+    
+    print(f"Получено {len(df)} строк данных")
+    
     # Сортируем по проценту отчислений
     df = df.sort_values('dropout_pct')
     
@@ -194,66 +242,64 @@ def create_horizontal_bar_chart():
     for i, bar in enumerate(bars):
         plt.text(bar.get_width() + 0.5, bar.get_y() + bar.get_height()/2, 
                 f"{df.iloc[i]['dropout_pct']}% ({df.iloc[i]['students']} студентов)", 
-                va='center')
+                va='center', fontsize=10)
     
     plt.title('Процент отчислений по образовательному бэкграунду', fontsize=16)
-    plt.xlabel('Процент отчислений, %')
-    plt.ylabel('Уровень образования')
+    plt.xlabel('Процент отчислений, %', fontsize=12)
+    plt.ylabel('Уровень образования', fontsize=12)
     plt.grid(axis='x', linestyle='--', alpha=0.7)
     
     # Сохраняем график
     chart_path = charts_dir / "hbar_chart_dropout_by_education.png"
     plt.tight_layout()
-    plt.savefig(chart_path)
+    plt.savefig(chart_path, dpi=300)
     plt.close()
     
-    print(f"Горизонтальная столбчатая диаграмма сохранена: {chart_path}")
+    print(f"✓ Горизонтальная столбчатая диаграмма сохранена: {chart_path}")
 
 def create_line_chart():
-    """Создает линейный график: активность студентов по неделям с разбивкой по итоговому результату"""
-
-    df = execute_query(VISUALIZATION_QUERIES["line_chart_weekly_activity_by_outcome"])
+    """Создает линейный график: средний балл студентов по неделям курса"""
+    print("\nСоздание линейного графика: средний балл студентов по неделям курса...")
+    
+    df = execute_query(VISUALIZATION_QUERIES["line_chart_avg_score_by_week"])
     if df is None or df.empty:
         print("Нет данных для построения линейного графика")
         return
     
-
+    print(f"Получено {len(df)} строк данных")
     
     plt.figure(figsize=(14, 8))
     
-    # Создаем линейный график для каждой группы студентов по итоговому результату
-    for result, group in df.groupby('final_result'):
-        plt.plot(group['week_num'], group['active_students'], 
-                marker='o', linestyle='-', linewidth=2, label=result)
+    # Создаем линейный график для каждого модуля
+    for module, group in df.groupby('code_module'):
+        plt.plot(group['week_number'], group['avg_score'], 
+                marker='o', linestyle='-', linewidth=2, 
+                label=module, markersize=5)
     
-    plt.title('Активность студентов по неделям курса CCC-2014B с разбивкой по итоговому результату', fontsize=16)
-    plt.xlabel('Неделя курса')
-    plt.ylabel('Количество активных студентов')
-    plt.legend(title='Итоговый результат')
-    plt.grid(True)
-    
-    # Добавляем аннотацию к графику
-    plt.annotate('Начало курса', xy=(0, df[df['week_num'] == 0]['active_students'].sum()), 
-                xytext=(5, df[df['week_num'] == 0]['active_students'].sum() + 20),
-                arrowprops=dict(arrowstyle="->"))
+    plt.title('Средний балл студентов по неделям курса', fontsize=16)
+    plt.xlabel('Номер недели', fontsize=12)
+    plt.ylabel('Средний балл', fontsize=12)
+    plt.legend(title='Модуль курса', fontsize=10)
+    plt.grid(True, alpha=0.3)
     
     # Сохраняем график
-    chart_path = charts_dir / "line_chart_weekly_activity_by_outcome.png"
+    chart_path = charts_dir / "line_chart_avg_score_by_week.png"
     plt.tight_layout()
-    plt.savefig(chart_path)
+    plt.savefig(chart_path, dpi=300)
     plt.close()
     
-    print(f"Линейный график сохранен: {chart_path}")
+    print(f"✓ Линейный график сохранен: {chart_path}")
 
 def create_histogram():
     """Создает гистограмму: распределение баллов за экзаменационные задания"""
-
+    print("\nСоздание гистограммы: распределение баллов за экзаменационные задания...")
+    
     df = execute_query(VISUALIZATION_QUERIES["histogram_exam_scores"])
     if df is None or df.empty:
         print("Нет данных для построения гистограммы")
         return
     
-
+    print(f"Получено {len(df)} строк данных")
     
     plt.figure(figsize=(12, 8))
     
@@ -270,29 +316,30 @@ def create_histogram():
     
     # Добавляем вертикальную линию для среднего значения
     mean_score = df['score'].mean()
-    plt.axvline(mean_score, color='red', linestyle='dashed', linewidth=1, 
+    plt.axvline(mean_score, color='red', linestyle='dashed', linewidth=2, 
                 label=f'Средний балл: {mean_score:.2f}')
     
     # Добавляем вертикальную линию для проходного балла (обычно 40)
-    plt.axvline(40, color='black', linestyle='dashed', linewidth=1, 
+    plt.axvline(40, color='black', linestyle='dashed', linewidth=2, 
                 label=f'Проходной балл: 40')
     
     plt.title('Распределение баллов за экзаменационные задания', fontsize=16)
-    plt.xlabel('Балл')
-    plt.ylabel('Количество студентов')
-    plt.legend()
+    plt.xlabel('Балл', fontsize=12)
+    plt.ylabel('Количество студентов', fontsize=12)
+    plt.legend(fontsize=11)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     
     # Сохраняем график
     chart_path = charts_dir / "histogram_exam_scores.png"
     plt.tight_layout()
-    plt.savefig(chart_path)
+    plt.savefig(chart_path, dpi=300)
     plt.close()
     
-    print(f"Гистограмма сохранена: {chart_path}")
+    print(f"✓ Гистограмма сохранена: {chart_path}")
 
 def create_scatter_plot():
     """Создает диаграмму рассеяния: взаимосвязь между кликами и средним баллом"""
+    print("\nСоздание диаграммы рассеяния: взаимосвязь между активностью на платформе и средним баллом...")
     
     df = execute_query(VISUALIZATION_QUERIES["scatter_plot_clicks_vs_score"])
     if df is None or df.empty:
@@ -304,34 +351,34 @@ def create_scatter_plot():
     plt.figure(figsize=(12, 8))
     
     # Создаем диаграмму рассеяния с линией тренда
-    plt.scatter(df['total_clicks'], df['avg_score'], alpha=0.5)
+    plt.scatter(df['total_clicks'], df['avg_score'], alpha=0.5, s=30)
     
     # Добавляем линию регрессии
     z = np.polyfit(df['total_clicks'], df['avg_score'], 1)
     p = np.poly1d(z)
-    plt.plot(df['total_clicks'], p(df['total_clicks']), "r--", 
+    plt.plot(df['total_clicks'], p(df['total_clicks']), "r--", linewidth=2,
              label=f"Тренд: y={z[0]:.6f}x+{z[1]:.2f}")
     
     # Рассчитываем и отображаем коэффициент корреляции Пирсона
     corr = df['total_clicks'].corr(df['avg_score'])
-    plt.annotate(f"Корреляция: {corr:.2f}", xy=(0.05, 0.95), xycoords='axes fraction',
-                 fontsize=12, bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8))
+    plt.annotate(f"Корреляция Пирсона: {corr:.3f}", xy=(0.05, 0.95), xycoords='axes fraction',
+                 fontsize=12, bbox=dict(boxstyle="round,pad=0.5", fc="white", ec="gray", alpha=0.8))
     
     plt.title('Взаимосвязь между активностью студента на платформе и средним баллом', fontsize=16)
-    plt.xlabel('Общее количество кликов')
-    plt.ylabel('Средний балл')
-    plt.legend()
+    plt.xlabel('Общее количество кликов', fontsize=12)
+    plt.ylabel('Средний балл', fontsize=12)
+    plt.legend(fontsize=11)
     plt.grid(True, alpha=0.3)
     
     # Сохраняем график
     chart_path = charts_dir / "scatter_plot_clicks_vs_score.png"
     plt.tight_layout()
-    plt.savefig(chart_path)
+    plt.savefig(chart_path, dpi=300)
     plt.close()
     
-
 def main():
- 
+
+    
     # Создаем все типы визуализаций
     create_pie_chart()
     create_bar_chart()
@@ -340,7 +387,5 @@ def main():
     create_histogram()
     create_scatter_plot()
     
-
-
 if __name__ == "__main__":
     main()

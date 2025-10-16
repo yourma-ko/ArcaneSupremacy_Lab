@@ -1,0 +1,141 @@
+dashboard_title: Student dashboard
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: false
+uuid: 8635f2a3-1eae-438a-9af7-cccdf5e09269
+position:
+  DASHBOARD_VERSION_KEY: v2
+  GRID_ID:
+    children:
+    - ROW-N-MQLOCDVI
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: Student dashboard
+    type: HEADER
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  ROW-N-MQLOCDVI:
+    children:
+    - CHART-Z5J2OLB2
+    - CHART-NPDKZMTH
+    - CHART-W0FOP0OX
+    - CHART-TQEEP4MO
+    - CHART-1YL3GK3L
+    id: ROW-N-MQLOCDVI
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-Z5J2OLB2:
+    children: []
+    id: CHART-Z5J2OLB2
+    meta:
+      chartId: 329
+      height: 50
+      sliceName: 'treemap Assessment Load: Course -> Type -> Assessment'
+      uuid: 5a482549-6883-4546-a984-f018bdc31206
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-MQLOCDVI
+  CHART-NPDKZMTH:
+    children: []
+    id: CHART-NPDKZMTH
+    meta:
+      chartId: 160
+      height: 50
+      sliceName: scores_by_course
+      uuid: 5f9ff629-98eb-45a1-9cf9-93741715f014
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-MQLOCDVI
+  CHART-W0FOP0OX:
+    children: []
+    id: CHART-W0FOP0OX
+    meta:
+      chartId: 159
+      height: 50
+      sliceName: Activity Over Time
+      uuid: 7257b321-8a05-4ca1-97b9-8eac36650d0f
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-MQLOCDVI
+  CHART-TQEEP4MO:
+    children: []
+    id: CHART-TQEEP4MO
+    meta:
+      chartId: 201
+      height: 50
+      sliceName: Workload by Course and Assessment Type
+      uuid: 0a04dab2-c7c4-48ca-ac66-e715509e5fed
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-MQLOCDVI
+  CHART-1YL3GK3L:
+    children: []
+    id: CHART-1YL3GK3L
+    meta:
+      chartId: 161
+      height: 50
+      sliceName: scores_over_time
+      uuid: a33bcbda-2f0c-49f9-9d9d-9790c05efeae
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-MQLOCDVI
+metadata:
+  chart_configuration: {}
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope: []
+  map_label_colors: {}
+  color_scheme: ''
+  refresh_frequency: 0
+  color_scheme_domain: []
+  expanded_slices: {}
+  label_colors: {}
+  shared_label_colors:
+  - AAA
+  - BBB
+  - CCC
+  - CMA
+  - DDD
+  - EEE
+  - Exam
+  - FFF
+  - GGG
+  - TMA
+  timed_refresh_immune_slices: []
+  cross_filters_enabled: true
+  default_filters: '{}'
+version: 1.0.0

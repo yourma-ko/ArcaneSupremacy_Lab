@@ -1,0 +1,359 @@
+dashboard_title: Teacher dashboard
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: false
+uuid: 5b18dee9-2310-4a83-b07c-7c82da0e1bf7
+position:
+  CHART-explore-202-1:
+    children: []
+    id: CHART-explore-202-1
+    meta:
+      chartId: 202
+      height: 50
+      sliceName: Total Students
+      uuid: 9c8d27ed-3257-461a-a756-7dfa8d57cd7d
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hjV7GVbOJ-5OxLcFkMkNI
+    type: CHART
+  CHART-explore-203-1:
+    children: []
+    id: CHART-explore-203-1
+    meta:
+      chartId: 203
+      height: 50
+      sliceName: Teacher Summary by Course
+      uuid: ad145644-89a0-497c-ace1-52fdea07ccd3
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-hjV7GVbOJ-5OxLcFkMkNI
+    type: CHART
+  CHART-explore-210-1:
+    children: []
+    id: CHART-explore-210-1
+    meta:
+      chartId: 210
+      height: 50
+      sliceName: Students by Region (Scatter Map)
+      uuid: c8a3e72e-9697-4def-a103-31b89fe8b6f2
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-0Mx_H6GmDSFA37ylBYqr3
+    type: CHART
+  CHART-explore-287-1:
+    children: []
+    id: CHART-explore-287-1
+    meta:
+      chartId: 287
+      height: 50
+      sliceName: Students Density (Heatmap)
+      uuid: 2a20ce81-c98f-42e8-900f-6f145fdc898c
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-0Mx_H6GmDSFA37ylBYqr3
+    type: CHART
+  CHART-explore-288-1:
+    children: []
+    id: CHART-explore-288-1
+    meta:
+      chartId: 288
+      height: 50
+      sliceName: Total Clicks
+      uuid: aee37241-f0ce-4028-98e4-785dd00126c3
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-0Mx_H6GmDSFA37ylBYqr3
+    type: CHART
+  DASHBOARD_VERSION_KEY: v2
+  GRID_ID:
+    children:
+    - ROW-hjV7GVbOJ-5OxLcFkMkNI
+    - ROW-0Mx_H6GmDSFA37ylBYqr3
+    - ROW-N-8FORVYTM
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: Teacher dashboard
+    type: HEADER
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  ROW-0Mx_H6GmDSFA37ylBYqr3:
+    children:
+    - CHART-explore-210-1
+    - CHART-explore-287-1
+    - CHART-explore-288-1
+    id: ROW-0Mx_H6GmDSFA37ylBYqr3
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  ROW-hjV7GVbOJ-5OxLcFkMkNI:
+    children:
+    - CHART-explore-202-1
+    - CHART-explore-203-1
+    id: ROW-hjV7GVbOJ-5OxLcFkMkNI
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  ROW-N-8FORVYTM:
+    children:
+    - CHART-D4QH1VH2
+    - CHART-025FWS9A
+    - CHART-OF4E35P7
+    - CHART-33H743KS
+    id: ROW-N-8FORVYTM
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-D4QH1VH2:
+    children: []
+    id: CHART-D4QH1VH2
+    meta:
+      chartId: 330
+      height: 50
+      sliceName: Students by Region
+      uuid: 9d0f2305-50e0-4e0d-ada2-b24f7be85e67
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-8FORVYTM
+  CHART-025FWS9A:
+    children: []
+    id: CHART-025FWS9A
+    meta:
+      chartId: 328
+      height: 50
+      sliceName: 'sunburst Students: Course -> Presentation -> Result'
+      uuid: d83df762-0283-4524-adbb-b846a7dd2723
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-8FORVYTM
+  CHART-OF4E35P7:
+    children: []
+    id: CHART-OF4E35P7
+    meta:
+      chartId: 331
+      height: 50
+      sliceName: 'Score count: DB vs CSV'
+      uuid: 75fa1e8a-bf78-484a-b046-81030c2f641c
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-8FORVYTM
+  CHART-33H743KS:
+    children: []
+    id: CHART-33H743KS
+    meta:
+      chartId: 327
+      height: 50
+      sliceName: "HEATMAP Students by Course \xD7 Final Result"
+      uuid: b57964c2-ace6-4aed-b59e-7cee25d18309
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-8FORVYTM
+metadata:
+  color_scheme_domain: []
+  shared_label_colors: []
+  map_label_colors: {}
+  label_colors: {}
+  chart_configuration:
+    '203':
+      id: 203
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 202
+        - 210
+        - 287
+        - 288
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 202
+    - 203
+    - 210
+    - 287
+    - 288
+  color_scheme: ''
+  refresh_frequency: 30
+  expanded_slices: {}
+  timed_refresh_immune_slices: []
+  cross_filters_enabled: true
+  default_filters: '{}'
+  stagger_refresh: true
+  native_filter_configuration:
+  - id: NATIVE_FILTER-tfQpMg3rPn9GwyZfRyGLG
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: Module
+    filterType: filter_select
+    targets:
+    - column:
+        name: code_module
+      datasetUuid: 7b7af992-9939-4f84-94e3-14ffbf90058e
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 202
+      - 203
+      - 210
+      - 287
+      - 288
+      - 327
+      - 328
+      - 330
+      - 331
+    type: NATIVE_FILTER
+    description: ''
+  - id: NATIVE_FILTER-ptpRbozmvuPhz-bqS76mb
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: Presentation
+    filterType: filter_select
+    targets:
+    - column:
+        name: code_presentation
+      datasetUuid: b5f7629b-46b5-4c95-9335-56828716e529
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 210
+      - 287
+      - 288
+      - 327
+      - 328
+      - 330
+      - 331
+    type: NATIVE_FILTER
+    description: ''
+  - id: NATIVE_FILTER-WhG8Pf4C5y48n8_iSChAu
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: Region
+    filterType: filter_select
+    targets:
+    - column:
+        name: region
+      datasetUuid: a86c9cdb-58fe-4470-80b3-b66036c33c9d
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 202
+      - 203
+      - 210
+      - 287
+      - 288
+      - 327
+      - 328
+      - 330
+      - 331
+    type: NATIVE_FILTER
+    description: ''
+  - id: NATIVE_FILTER-0NDvOn9nFEDqunSkW8mSU
+    controlValues:
+      enableEmptyFilter: false
+      defaultToFirstItem: false
+      multiSelect: true
+      searchAllOptions: false
+      inverseSelection: false
+    name: Date
+    filterType: filter_select
+    targets:
+    - column:
+        name: date
+      datasetUuid: 7b7af992-9939-4f84-94e3-14ffbf90058e
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded:
+      - 202
+      - 203
+      - 210
+      - 287
+      - 288
+      - 327
+      - 328
+      - 330
+      - 331
+    type: NATIVE_FILTER
+    description: ''
+version: 1.0.0

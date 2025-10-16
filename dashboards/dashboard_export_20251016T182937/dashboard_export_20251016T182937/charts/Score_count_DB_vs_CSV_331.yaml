@@ -1,0 +1,83 @@
+slice_name: 'Score count: DB vs CSV'
+description: null
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_line
+params:
+  datasource: 80__table
+  viz_type: echarts_timeseries_line
+  slice_id: 331
+  x_axis: date
+  x_axis_sort_asc: true
+  x_axis_sort_series: name
+  x_axis_sort_series_ascending: true
+  metrics:
+  - aggregate: MAX
+    column:
+      advanced_data_type: null
+      changed_on: '2025-10-16T15:07:31.616471'
+      column_name: cnt
+      created_on: '2025-10-16T15:07:31.616468'
+      description: null
+      expression: null
+      extra: null
+      filterable: true
+      groupby: true
+      id: 1658
+      is_active: true
+      is_dttm: false
+      python_date_format: null
+      type: LONGINTEGER
+      type_generic: 0
+      uuid: 961e2c8b-fbbd-497a-8af6-8211741ead95
+      verbose_name: null
+    datasourceWarning: false
+    expressionType: SIMPLE
+    hasCustomLabel: false
+    label: MAX(cnt)
+    optionName: metric_8kbh9pjm0yo_owclya8wp5b
+    sqlExpression: null
+  groupby:
+  - source
+  adhoc_filters: []
+  limit: 100
+  order_desc: true
+  row_limit: 250
+  truncate_metric: true
+  show_empty_columns: true
+  comparison_type: values
+  annotation_layers: []
+  forecastPeriods: 10
+  forecastInterval: 0.8
+  x_axis_title: Day of course
+  x_axis_title_margin: 15
+  y_axis_title: Number of scores
+  y_axis_title_margin: 30
+  y_axis_title_position: Left
+  sort_series_type: sum
+  color_scheme: d3Category10
+  seriesType: line
+  show_value: false
+  zoomable: false
+  minorTicks: false
+  show_legend: true
+  legendType: scroll
+  legendOrientation: top
+  legendMargin: ''
+  x_axis_time_format: smart_date
+  rich_tooltip: true
+  showTooltipTotal: true
+  showTooltipPercentage: false
+  tooltipTimeFormat: smart_date
+  y_axis_format: SMART_NUMBER
+  minorSplitLine: false
+  truncateXAxis: true
+  extra_form_data: {}
+  dashboards:
+  - 14
+query_context: '{"datasource":{"id":80,"type":"table"},"force":false,"queries":[{"filters":[],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[{"columnType":"BASE_AXIS","sqlExpression":"date","label":"date","expressionType":"SQL"},"source"],"metrics":[{"aggregate":"MAX","column":{"advanced_data_type":null,"changed_on":"2025-10-16T15:07:31.616471","column_name":"cnt","created_on":"2025-10-16T15:07:31.616468","description":null,"expression":null,"extra":null,"filterable":true,"groupby":true,"id":1658,"is_active":true,"is_dttm":false,"python_date_format":null,"type":"LONGINTEGER","type_generic":0,"uuid":"961e2c8b-fbbd-497a-8af6-8211741ead95","verbose_name":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"MAX(cnt)","optionName":"metric_8kbh9pjm0yo_owclya8wp5b","sqlExpression":null}],"orderby":[[{"aggregate":"MAX","column":{"advanced_data_type":null,"changed_on":"2025-10-16T15:07:31.616471","column_name":"cnt","created_on":"2025-10-16T15:07:31.616468","description":null,"expression":null,"extra":null,"filterable":true,"groupby":true,"id":1658,"is_active":true,"is_dttm":false,"python_date_format":null,"type":"LONGINTEGER","type_generic":0,"uuid":"961e2c8b-fbbd-497a-8af6-8211741ead95","verbose_name":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"MAX(cnt)","optionName":"metric_8kbh9pjm0yo_owclya8wp5b","sqlExpression":null},false]],"annotation_layers":[],"row_limit":250,"series_columns":["source"],"series_limit":100,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{},"time_offsets":[],"post_processing":[{"operation":"pivot","options":{"index":["date"],"columns":["source"],"aggregates":{"MAX(cnt)":{"operator":"mean"}},"drop_missing_columns":false}},{"operation":"rename","options":{"columns":{"MAX(cnt)":null},"level":0,"inplace":true}},{"operation":"flatten"}]}],"form_data":{"datasource":"80__table","viz_type":"echarts_timeseries_line","slice_id":331,"x_axis":"date","x_axis_sort_asc":true,"x_axis_sort_series":"name","x_axis_sort_series_ascending":true,"metrics":[{"aggregate":"MAX","column":{"advanced_data_type":null,"changed_on":"2025-10-16T15:07:31.616471","column_name":"cnt","created_on":"2025-10-16T15:07:31.616468","description":null,"expression":null,"extra":null,"filterable":true,"groupby":true,"id":1658,"is_active":true,"is_dttm":false,"python_date_format":null,"type":"LONGINTEGER","type_generic":0,"uuid":"961e2c8b-fbbd-497a-8af6-8211741ead95","verbose_name":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"MAX(cnt)","optionName":"metric_8kbh9pjm0yo_owclya8wp5b","sqlExpression":null}],"groupby":["source"],"adhoc_filters":[],"limit":100,"order_desc":true,"row_limit":250,"truncate_metric":true,"show_empty_columns":true,"comparison_type":"values","annotation_layers":[],"forecastPeriods":10,"forecastInterval":0.8,"x_axis_title":"Day
+  of course","x_axis_title_margin":15,"y_axis_title":"Number of scores","y_axis_title_margin":30,"y_axis_title_position":"Left","sort_series_type":"sum","color_scheme":"d3Category10","seriesType":"line","show_value":false,"zoomable":false,"minorTicks":false,"show_legend":true,"legendType":"scroll","legendOrientation":"top","legendMargin":"","x_axis_time_format":"smart_date","rich_tooltip":true,"showTooltipTotal":true,"showTooltipPercentage":false,"tooltipTimeFormat":"smart_date","y_axis_format":"SMART_NUMBER","minorSplitLine":false,"truncateXAxis":true,"extra_form_data":{},"dashboards":[14],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 75fa1e8a-bf78-484a-b046-81030c2f641c
+version: 1.0.0
+dataset_uuid: d755238f-81e9-4f7f-bb4c-d2ed015e5c6d

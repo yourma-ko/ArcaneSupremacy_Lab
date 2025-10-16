@@ -1,0 +1,71 @@
+table_name: ds_clicks_vs_score
+main_dttm_col: null
+description: null
+default_endpoint: null
+offset: 0
+cache_timeout: null
+catalog: ou_analytics
+schema: null
+sql: "WITH student_clicks AS (\r\n  SELECT sv.id_student, SUM(sv.sum_click) AS total_clicks\r\
+  \n  FROM public.studentvle sv\r\n  GROUP BY sv.id_student\r\n),\r\nstudent_scores\
+  \ AS (\r\n  SELECT sa.id_student, AVG(sa.score) AS avg_score\r\n  FROM public.studentassessment\
+  \ sa\r\n  GROUP BY sa.id_student\r\n)\r\nSELECT sc.id_student, sc.total_clicks,\
+  \ ss.avg_score\r\nFROM student_clicks sc\r\nJOIN student_scores ss ON sc.id_student\
+  \ = ss.id_student\r\nORDER BY sc.id_student;\r\n"
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+uuid: 47a13943-66fd-4d96-b4f4-cebed66d779e
+metrics:
+- metric_name: count
+  verbose_name: COUNT(*)
+  metric_type: count
+  expression: COUNT(*)
+  description: null
+  d3format: null
+  currency: null
+  extra: null
+  warning_text: null
+columns:
+- column_name: avg_score
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: FLOAT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: total_clicks
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: LONGINTEGER
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  extra: null
+- column_name: id_student
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: INTEGER
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 789ff71b-e939-4d49-942a-ff795004b2a1

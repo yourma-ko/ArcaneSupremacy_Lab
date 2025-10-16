@@ -1,0 +1,146 @@
+dashboard_title: Assn2 Dashboard
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: false
+uuid: 4c31c58c-c82a-40d4-b913-456ff4181830
+position:
+  DASHBOARD_VERSION_KEY: v2
+  GRID_ID:
+    children:
+    - ROW-N-TLTBKK6K
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: Assn2 Dashboard
+    type: HEADER
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  ROW-N-TLTBKK6K:
+    children:
+    - CHART-WMFWW9XA
+    - CHART-V4ASQSXB
+    - CHART-WG0CFSQD
+    - CHART-R8AZW6F8
+    - CHART-NEIPLJGG
+    - CHART-KGL361SW
+    id: ROW-N-TLTBKK6K
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-WMFWW9XA:
+    children: []
+    id: CHART-WMFWW9XA
+    meta:
+      chartId: 206
+      height: 50
+      sliceName: Withdrawn Rate by Education
+      uuid: 031fec5c-80b7-40df-9aa9-460ccb5295a7
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-TLTBKK6K
+  CHART-V4ASQSXB:
+    children: []
+    id: CHART-V4ASQSXB
+    meta:
+      chartId: 207
+      height: 50
+      sliceName: Average Score by Week
+      uuid: 40a1da9d-df1b-403e-9e9a-2e34c189f82f
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-TLTBKK6K
+  CHART-WG0CFSQD:
+    children: []
+    id: CHART-WG0CFSQD
+    meta:
+      chartId: 208
+      height: 50
+      sliceName: Exam Score Distribution
+      uuid: 33b61a6d-eee9-401c-9921-fa50c1e0b465
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-TLTBKK6K
+  CHART-R8AZW6F8:
+    children: []
+    id: CHART-R8AZW6F8
+    meta:
+      chartId: 205
+      height: 50
+      sliceName: Average Score by Module & Assessment Type
+      uuid: c2fe89a8-203f-435e-844f-d7b4bda2df84
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-TLTBKK6K
+  CHART-NEIPLJGG:
+    children: []
+    id: CHART-NEIPLJGG
+    meta:
+      chartId: 209
+      height: 50
+      sliceName: Clicks vs Average Score
+      uuid: a9c187f4-98c4-4b15-bb04-11248312db0a
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-TLTBKK6K
+  CHART-KGL361SW:
+    children: []
+    id: CHART-KGL361SW
+    meta:
+      chartId: 204
+      height: 50
+      sliceName: Activity by Material Type
+      uuid: 7fda7c72-6b18-4b84-9143-e0010f77f2a4
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-TLTBKK6K
+metadata:
+  chart_configuration: {}
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope: []
+  map_label_colors: {}
+  color_scheme: ''
+  refresh_frequency: 0
+  color_scheme_domain: []
+  expanded_slices: {}
+  label_colors: {}
+  shared_label_colors: []
+  timed_refresh_immune_slices: []
+  cross_filters_enabled: true
+  default_filters: '{}'
+version: 1.0.0

@@ -1,0 +1,29 @@
+slice_name: Exam Score Distribution
+description: null
+certified_by: null
+certification_details: null
+viz_type: histogram_v2
+params:
+  datasource: 69__table
+  viz_type: histogram_v2
+  column: score
+  groupby: []
+  adhoc_filters: []
+  row_limit: 10000
+  bins: 20
+  color_scheme: supersetColors
+  show_value: false
+  show_legend: true
+  x_axis_title: score
+  x_axis_format: SMART_NUMBER
+  y_axis_title: num of students
+  y_axis_format: SMART_NUMBER
+  extra_form_data: {}
+  dashboards:
+  - 15
+query_context: '{"datasource":{"id":69,"type":"table"},"force":false,"queries":[{"filters":[],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":["score"],"annotation_layers":[],"row_limit":10000,"series_limit":0,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{},"post_processing":[{"operation":"histogram","options":{"column":"score","groupby":[],"bins":20}}]}],"form_data":{"datasource":"69__table","viz_type":"histogram_v2","column":"score","groupby":[],"adhoc_filters":[],"row_limit":10000,"bins":20,"color_scheme":"supersetColors","show_value":false,"show_legend":true,"x_axis_title":"score","x_axis_format":"SMART_NUMBER","y_axis_title":"num
+  of students","y_axis_format":"SMART_NUMBER","extra_form_data":{},"dashboards":[15],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 33b61a6d-eee9-401c-9921-fa50c1e0b465
+version: 1.0.0
+dataset_uuid: 712f65ea-2934-412f-b611-16a9457eb968
